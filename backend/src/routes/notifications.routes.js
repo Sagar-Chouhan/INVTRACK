@@ -21,6 +21,7 @@ router.get('/', authRequired, async (req, res, next) => {
 
     const notifications = await Notification.find(filter)
       .sort({ createdAt: -1 })
+      .lean()
       .limit(50)
 
     res.json(notifications)

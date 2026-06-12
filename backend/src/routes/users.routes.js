@@ -19,8 +19,7 @@ router.get('/list', authRequired, async (_req, res, next) => {
 
 router.get('/', authRequired, requireRole('admin'), async (_req, res, next) => {
   try {
-    const users = await User.find()
-      .select('-password_hash')
+    const users = await User.find().select('-password_hash').lean()
       .populate('assigned_categories', 'name')
     res.json(users)
   } catch (err) {

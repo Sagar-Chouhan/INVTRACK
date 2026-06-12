@@ -18,13 +18,13 @@ export default function Login() {
 
   const validateForm = () => {
     const newErrors = {}
-    
+
     if (!formData.email) {
       newErrors.email = language === 'hi' ? 'ईमेल आवश्यक है' : 'Email is required'
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = language === 'hi' ? 'कृपया एक मान्य ईमेल दर्ज करें' : 'Please enter a valid email'
     }
-    
+
     if (!formData.password) {
       newErrors.password = language === 'hi' ? 'पासवर्ड आवश्यक है' : 'Password is required'
     } else if (formData.password.length < 4) {
@@ -37,18 +37,18 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     if (!validateForm()) return
-    
+
     setIsLoading(true)
     setErrors({})
-    
+
     const result = await login(formData.email, formData.password)
-    
+
     if (!result.success) {
       setErrors({ form: result.error })
     }
-    
+
     setIsLoading(false)
   }
 
@@ -126,9 +126,8 @@ export default function Login() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder={language === 'hi' ? 'अपना ईमेल दर्ज करें' : 'Enter your email'}
-                  className={`w-full bg-white border ${
-                    errors.email ? 'border-red-500' : 'border-slate-700'
-                  } rounded-lg py-3 px-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition-all`}
+                  className={`w-full bg-white border ${errors.email ? 'border-red-500' : 'border-slate-700'
+                    } rounded-lg py-3 px-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition-all`}
                 />
               </div>
               {errors.email && (
@@ -149,9 +148,8 @@ export default function Login() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder={language === 'hi' ? 'अपना पासवर्ड दर्ज करें' : 'Enter your password'}
-                  className={`w-full bg-white border ${
-                    errors.password ? 'border-red-500' : 'border-slate-700'
-                  } rounded-lg py-3 px-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition-all`}
+                  className={`w-full bg-white border ${errors.password ? 'border-red-500' : 'border-slate-700'
+                    } rounded-lg py-3 px-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition-all`}
                 />
                 <button
                   type="button"
@@ -207,7 +205,7 @@ export default function Login() {
           </div>
 
           {/* Demo Credentials */}
-          <div className="mt-6 pt-6 border-t border-slate-200">
+          {/* <div className="mt-6 pt-6 border-t border-slate-200">
             <p className="text-sm text-slate-500 text-center mb-3">
               {language === 'hi' ? 'डेमो क्रेडेंशियल्स:' : 'Demo Credentials:'}
             </p>
@@ -221,7 +219,7 @@ export default function Login() {
                 <span className="text-slate-700 font-mono">Admin@1234</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </motion.div>
     </div>

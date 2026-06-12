@@ -195,6 +195,7 @@ router.get('/', authRequired, async (req, res, next) => {
       .populate({ path: 'stock_id', populate: { path: 'category_id' } })
       .populate('issued_by', 'full_name mobile email')
       .populate('incharge_id', 'full_name mobile email department designation')
+      .lean()
 
     // Filter for auditors
     if (req.user.role === 'auditor') {
@@ -221,6 +222,7 @@ router.get('/pending-audit', authRequired, async (req, res, next) => {
       .populate({ path: 'stock_id', populate: { path: 'category_id' } })
       .populate('issued_by', 'full_name mobile email')
       .populate('incharge_id', 'full_name mobile email department designation')
+      .lean()
 
     let filtered = issues;
 

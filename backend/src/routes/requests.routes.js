@@ -63,6 +63,7 @@ router.get('/', authRequired, async (req, res, next) => {
     const requests = await ProductRequest.find(filter)
       .populate('requestedBy', 'full_name email mobile')
       .populate('respondedBy', 'full_name')
+      .lean()
       .sort({ createdAt: -1 })
 
     res.json(requests)

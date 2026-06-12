@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/', authRequired, async (_req, res, next) => {
   try {
-    const categories = await Category.find().sort({ name: 1 })
+    const categories = await Category.find().sort({ name: 1 }).lean()
     res.json(categories)
   } catch (err) {
     next(err)

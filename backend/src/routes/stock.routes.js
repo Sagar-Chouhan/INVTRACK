@@ -15,7 +15,7 @@ router.get('/', authRequired, async (req, res, next) => {
     if (req.user.role === 'auditor' && req.user.assigned_categories?.length) {
       filter.category_id = { $in: req.user.assigned_categories }
     }
-    const stock = await StockInventory.find(filter).populate('category_id', 'name')
+    const stock = await StockInventory.find(filter).populate('category_id', 'name').lean()
     
     res.json(stock)
   } catch (err) {

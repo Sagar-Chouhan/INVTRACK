@@ -8,8 +8,7 @@ const router = express.Router()
 // GET /api/incharges - Get all incharges
 router.get('/', authRequired, async (req, res, next) => {
   try {
-    const incharges = await Incharge.find()
-      .sort({ full_name: 1 })
+    const incharges = await Incharge.find().sort({ full_name: 1 }).lean()
       .populate('added_by', 'full_name')
     res.json(incharges)
   } catch (err) {

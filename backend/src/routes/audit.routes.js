@@ -42,6 +42,7 @@ router.get('/assigned', authRequired, requireRole('auditor'), async (req, res, n
     const issues = await IssuedStock.find({ status: 'pending-audit' })
       .populate({ path: 'stock_id', populate: { path: 'category_id' } })
       .populate('issued_by', 'full_name')
+      .lean()
 
     const assignedIds = (req.user.assigned_categories || []).map(normalizeId).filter(Boolean)
     const filtered = issues.filter((issue) => {
@@ -52,10 +53,10 @@ router.get('/assigned', authRequired, requireRole('auditor'), async (req, res, n
     const now = new Date()
     res.json(
       filtered.map((issue) => {
-        const diffMs = issue.verification_deadline.getTime() - now.getTime()
-        const daysRemaining = Math.ceil(diffMs / (24 * 60 * 60 * 1000))
-        const warning = daysRemaining <= 5
-        return { ...issue.toObject(), daysRemaining, warning }
+        const diffMs = issue.verification_deadline ? issue.verification_deadline.getTime() - now.getTime() : 0
+        const daysRemaining = issue.verification_deadline ? Math.ceil(diffMs / (24 * 60 * 60 * 1000)) : 0
+        const warning = daysRemaining > 0 && daysRemaining <= 5
+        return { ...issue, daysRemaining, warning }
       }),
     )
   } catch (err) {
