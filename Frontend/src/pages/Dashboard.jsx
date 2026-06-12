@@ -73,6 +73,7 @@ const getNavItems = (role) => {
     ],
     user: [
       { to: '/dashboard', icon: LayoutDashboard, label: 'Overview', end: true },
+      { to: '/dashboard/inventory', icon: List, label: 'Inventory' },
       { to: '/dashboard/request-stock', icon: ShoppingCart, label: 'Request Stock' },
       { to: '/dashboard/issues', icon: AlertCircle, label: 'Issued Stock' },
       { to: '/dashboard/my-requests', icon: FileText, label: 'My Requests' },

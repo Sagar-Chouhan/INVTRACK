@@ -137,12 +137,12 @@ export default function StockManagement() {
   const openEditModal = (item) => {
     setEditingItem(item)
     setFormData({
-      name: item.name || '',
-      category: item.category?._id || item.category || '',
-      qty: item.qty?.toString() || '',
+      name: item.product_name || item.name || '',
+      category: item.category_id?._id || item.category_id || item.category?._id || item.category || '',
+      qty: (item.quantity || item.qty)?.toString() || '',
       min_qty: item.min_qty?.toString() || '10',
       unit: item.unit || 'Pcs',
-      description: item.description || '',
+      description: item.notes || item.description || '',
     })
     setShowEditModal(true)
   }
@@ -173,9 +173,10 @@ export default function StockManagement() {
   }, [])
 
   const filteredStock = stock.filter((item) => {
-    const matchesSearch = item.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = !selectedCategory || 
-      (item.category?._id || item.category) === selectedCategory
+    const itemName = item.product_name || item.name || ''
+    const matchesSearch = itemName.toLowerCase().includes(searchQuery.toLowerCase())
+    const itemCat = item.category_id?._id || item.category_id || item.category?._id || item.category
+    const matchesCategory = !selectedCategory || itemCat === selectedCategory
     return matchesSearch && matchesCategory
   })
 
@@ -240,7 +241,7 @@ export default function StockManagement() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className={`bg-slate-900/50 border rounded-xl p-4 ${
-              item.qty <= (item.min_qty || 10)
+              (item.quantity || item.qty) <= (item.min_qty || 10)
                 ? 'border-red-500/50'
                 : 'border-slate-800'
             }`}
@@ -251,11 +252,11 @@ export default function StockManagement() {
                   <Package className="h-5 w-5 text-blue-400" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-white">{item.name}</h3>
-                  <p className="text-sm text-slate-400">{item.category?.name || 'Uncategorized'}</p>
+                  <h3 className="font-medium text-white">{item.product_name || item.name}</h3>
+                  <p className="text-sm text-slate-400">{item.category_id?.name || item.category?.name || 'Uncategorized'}</p>
                 </div>
               </div>
-              {item.qty <= (item.min_qty || 10) && (
+              {(item.quantity || item.qty) <= (item.min_qty || 10) && (
                 <AlertTriangle className="h-5 w-5 text-red-400" />
               )}
             </div>
@@ -264,9 +265,9 @@ export default function StockManagement() {
               <div>
                 <p className="text-slate-400">Quantity</p>
                 <p className={`text-xl font-bold ${
-                  item.qty <= (item.min_qty || 10) ? 'text-red-400' : 'text-white'
+                  (item.quantity || item.qty) <= (item.min_qty || 10) ? 'text-red-400' : 'text-white'
                 }`}>
-                  {item.qty} <span className="text-sm font-normal text-slate-500">{item.unit}</span>
+                  {item.quantity || item.qty || 0} <span className="text-sm font-normal text-slate-500">{item.unit}</span>
                 </p>
               </div>
               <div className="text-right">

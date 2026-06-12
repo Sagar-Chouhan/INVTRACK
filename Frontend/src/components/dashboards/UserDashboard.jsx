@@ -193,7 +193,7 @@ export default function UserDashboard() {
       label: 'INVENTORY', 
       sublabel: 'VIEW STOCK',
       iconBg: 'bg-emerald-500',
-      path: '/dashboard/stock' 
+      path: '/dashboard/inventory' 
     },
     { 
       icon: History, 

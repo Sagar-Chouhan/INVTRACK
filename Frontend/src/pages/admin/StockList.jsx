@@ -13,6 +13,7 @@ import {
   X,
   Save,
 } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
 // Modal component defined outside to prevent re-renders
 const Modal = ({ show, onClose, title, children }) => {
@@ -37,6 +38,8 @@ const Modal = ({ show, onClose, title, children }) => {
 }
 
 export default function StockList() {
+  const { user } = useAuth()
+  const isAdmin = user?.role === 'admin'
   const [stock, setStock] = useState([])
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
@@ -177,13 +180,15 @@ export default function StockList() {
           <h1 className="text-xl sm:text-2xl font-bold text-white">Stock Management</h1>
           <p className="text-slate-400">Manage your inventory items</p>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
-        >
-          <Plus className="h-5 w-5" />
-          Add Stock
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
+          >
+            <Plus className="h-5 w-5" />
+            Add Stock
+          </button>
+        )}
       </div>
 
       {/* Filters */}
@@ -221,7 +226,7 @@ export default function StockList() {
                 <th className="text-left px-4 py-3 text-slate-400 font-medium">Quantity</th>
                 <th className="text-left px-4 py-3 text-slate-400 font-medium">Location</th>
                 <th className="text-left px-4 py-3 text-slate-400 font-medium">Source</th>
-                <th className="text-right px-4 py-3 text-slate-400 font-medium">Actions</th>
+                {isAdmin && <th className="text-right px-4 py-3 text-slate-400 font-medium">Actions</th>}
               </tr>
             </thead>
             <tbody>
@@ -259,22 +264,24 @@ export default function StockList() {
                       {item.source_type || 'purchase'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="p-2 text-slate-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item._id)}
-                        className="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </td>
+                  {isAdmin && (
+                    <td className="px-4 py-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => handleEdit(item)}
+                          className="p-2 text-slate-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item._id)}
+                          className="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
