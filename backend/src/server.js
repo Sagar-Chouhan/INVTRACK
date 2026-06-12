@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
+import compression from 'compression'
 import { PORT } from './config.js'
 import { connectMongo } from './db.js'
 import authRoutes from './routes/auth.routes.js'
@@ -35,6 +36,7 @@ app.use(cors({
 }))
 
 app.use(express.json())
+app.use(compression())
 app.use(morgan('dev'))
 app.use('/uploads', express.static('uploads'))
 
