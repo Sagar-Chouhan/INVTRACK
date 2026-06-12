@@ -8,17 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        blue: {
-          400: 'var(--color-primary-400)',
-          500: 'var(--color-primary-500)',
-          600: 'var(--color-primary-600)',
-        },
-        cyan: {
-          400: 'var(--color-secondary-400)',
-          500: 'var(--color-secondary-500)',
-          600: 'var(--color-secondary-600)',
-        }
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
       }
-    }
+    },
   }
 }

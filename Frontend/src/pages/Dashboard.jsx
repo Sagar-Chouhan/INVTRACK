@@ -176,7 +176,7 @@ export default function Dashboard() {
         <div className="h-16 flex items-center justify-between px-4 border-b border-white/10">
           {sidebarOpen ? (
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <Shield className="h-6 w-6 text-white" />
               </div>
               <div>
@@ -216,8 +216,8 @@ export default function Dashboard() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-3 rounded-lg transition-all text-sm font-semibold ${
                   isActive
-                    ? 'bg-blue-600/80 text-white shadow-[0_0_15px_var(--color-primary-500)] border border-white/10'
-                    : 'text-slate-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-primary/10 text-primary border border-primary/20'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                 } ${sidebarOpen ? '' : 'justify-center'}`
               }
               onClick={() => setMobileMenuOpen(false)}
