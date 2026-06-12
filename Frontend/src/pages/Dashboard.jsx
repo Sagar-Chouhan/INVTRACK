@@ -26,6 +26,7 @@ import {
   Shield,
   Folder,
   Flag,
+  Palette,
 } from 'lucide-react'
 
 // Dashboard Views
@@ -97,7 +98,14 @@ export default function Dashboard() {
   const { user, logout } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [theme, setTheme] = useState(localStorage.getItem('invtrack-theme') || 'dark')
+  const [theme, setTheme] = useState(localStorage.getItem('invtrack-theme') || 'purple')
+  
+  const themes = ['purple', 'emerald', 'rose', 'blue']
+  const handleThemeToggle = () => {
+    const currentIndex = themes.indexOf(theme)
+    const nextTheme = themes[(currentIndex + 1) % themes.length]
+    setTheme(nextTheme)
+  }
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -208,7 +216,7 @@ export default function Dashboard() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-3 rounded-lg transition-all text-sm font-semibold ${
                   isActive
-                    ? 'bg-blue-600/80 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]'
+                    ? 'bg-blue-600/80 text-white shadow-[0_0_15px_var(--color-primary-500)] border border-white/10'
                     : 'text-slate-300 hover:text-white hover:bg-white/10'
                 } ${sidebarOpen ? '' : 'justify-center'}`
               }
@@ -274,13 +282,12 @@ export default function Dashboard() {
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* Settings */}
             <button
-              onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
-              className="p-2 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
-              title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
+              onClick={handleThemeToggle}
+              className="p-2 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors flex items-center gap-2"
+              title="Change Theme Color"
             >
-              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              <Palette className="h-5 w-5" />
             </button>
 
             <button 
