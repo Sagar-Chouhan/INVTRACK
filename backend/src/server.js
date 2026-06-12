@@ -20,7 +20,15 @@ const app = express()
 
 // CORS configuration for frontend connection
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174'],
+  origin: [
+    'http://localhost:5173', 
+    'http://localhost:5174', 
+    'http://localhost:3000', 
+    'http://127.0.0.1:5173', 
+    'http://127.0.0.1:5174',
+    'https://invtrack-seven.vercel.app',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -29,6 +37,10 @@ app.use(cors({
 app.use(express.json())
 app.use(morgan('dev'))
 app.use('/uploads', express.static('uploads'))
+
+app.get('/', (_req, res) => {
+  res.send('INVTrack API is running')
+})
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'INVTrack backend running' })
