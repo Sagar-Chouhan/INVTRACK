@@ -145,7 +145,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen flex bg-transparent">
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
@@ -160,12 +160,12 @@ export default function Dashboard() {
         animate={{ x: 0 }}
         className={`fixed lg:static inset-y-0 left-0 z-50 ${
           sidebarOpen ? 'w-64' : 'w-20'
-        } bg-slate-900/50 border-r border-slate-800 backdrop-blur-sm transition-all duration-300 ${
+        } glass-panel border-y-0 border-l-0 transition-all duration-300 ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Sidebar Header */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-white/10">
           {sidebarOpen ? (
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -208,8 +208,8 @@ export default function Dashboard() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-3 rounded-lg transition-all text-sm font-semibold ${
                   isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    ? 'bg-blue-600/80 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]'
+                    : 'text-slate-300 hover:text-white hover:bg-white/10'
                 } ${sidebarOpen ? '' : 'justify-center'}`
               }
               onClick={() => setMobileMenuOpen(false)}
@@ -221,8 +221,8 @@ export default function Dashboard() {
         </nav>
 
         {/* User Profile - Above Logout */}
-        <div className={`p-3 border-t border-slate-800 ${sidebarOpen ? '' : 'flex justify-center'}`}>
-          <div className={`flex items-center gap-3 p-2 bg-slate-800/50 rounded-lg ${sidebarOpen ? '' : 'flex-col'}`}>
+        <div className={`p-3 border-t border-white/10 ${sidebarOpen ? '' : 'flex justify-center'}`}>
+          <div className={`flex items-center gap-3 p-2 bg-black/20 rounded-lg ${sidebarOpen ? '' : 'flex-col'}`}>
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold flex-shrink-0">
               {user?.full_name?.charAt(0)?.toUpperCase() || 'A'}
             </div>
@@ -238,7 +238,7 @@ export default function Dashboard() {
         </div>
 
         {/* Bottom Actions */}
-        <div className="p-3 border-t border-slate-800">
+        <div className="p-3 border-t border-white/10">
           <button
             onClick={handleLogout}
             className={`flex items-center gap-3 px-3 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all w-full text-sm font-semibold ${
@@ -254,11 +254,11 @@ export default function Dashboard() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top Header */}
-        <header className="h-16 bg-slate-900/50 border-b border-slate-800 backdrop-blur-sm flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
+        <header className="h-16 glass-panel border-x-0 border-t-0 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors lg:hidden"
+              className="p-2 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors lg:hidden"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -269,7 +269,7 @@ export default function Dashboard() {
 
           <div className="flex items-center gap-4">
             {/* Notifications */}
-            <button className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors relative">
+            <button className="p-2 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors relative">
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
@@ -277,7 +277,7 @@ export default function Dashboard() {
             {/* Settings */}
             <button
               onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
-              className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              className="p-2 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
               title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -285,7 +285,7 @@ export default function Dashboard() {
 
             <button 
               onClick={() => navigate('/dashboard/settings')}
-              className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              className="p-2 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
             >
               <SettingsIcon className="h-5 w-5" />
             </button>

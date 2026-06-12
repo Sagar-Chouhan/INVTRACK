@@ -62,7 +62,7 @@ export default function Login() {
   }
 
   return (
-    <div className="theme-auth-dark min-h-screen flex items-center justify-center bg-gradient-to-b from-[#b646d8] via-[#e835b7] to-[#ff2b78] px-4 py-8">
+    <div className="theme-auth-dark min-h-screen flex items-center justify-center px-4 py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -83,22 +83,22 @@ export default function Login() {
         </div>
 
         {/* Login Card */}
-        <div className="bg-white border border-white/50 rounded-2xl p-7 shadow-[0_18px_40px_rgba(58,12,84,0.28)]">
+        <div className="glass-panel-heavy rounded-2xl p-7">
           {/* Language Toggle */}
           <div className="flex justify-end mb-4">
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg text-slate-200 transition-colors"
             >
               <Languages className="h-4 w-4" />
               {language === 'hi' ? 'English' : 'हिंदी'}
             </button>
           </div>
 
-          <h2 className="text-3xl font-semibold text-slate-900 mb-2 text-center">
+          <h2 className="text-3xl font-semibold text-white mb-2 text-center">
             {language === 'hi' ? 'लॉगिन' : 'Login'}
           </h2>
-          <p className="text-slate-500 text-center mb-6">
+          <p className="text-slate-300 text-center mb-6">
             {language === 'hi' ? 'अपने खाते में लॉगिन करें' : 'Sign in to your account'}
           </p>
 
@@ -126,8 +126,7 @@ export default function Login() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder={language === 'hi' ? 'अपना ईमेल दर्ज करें' : 'Enter your email'}
-                  className={`w-full bg-white border ${errors.email ? 'border-red-500' : 'border-slate-700'
-                    } rounded-lg py-3 px-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition-all`}
+                  className={`w-full input-glass rounded-lg py-3 px-10 placeholder:text-slate-400 focus:outline-none transition-all ${errors.email ? '!border-red-500' : ''}`}
                 />
               </div>
               {errors.email && (
@@ -137,7 +136,7 @@ export default function Login() {
 
             {/* Password Input */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 {t('password')}
               </label>
               <div className="relative">
@@ -148,8 +147,7 @@ export default function Login() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder={language === 'hi' ? 'अपना पासवर्ड दर्ज करें' : 'Enter your password'}
-                  className={`w-full bg-white border ${errors.password ? 'border-red-500' : 'border-slate-700'
-                    } rounded-lg py-3 px-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition-all`}
+                  className={`w-full input-glass rounded-lg py-3 px-10 placeholder:text-slate-400 focus:outline-none transition-all ${errors.password ? '!border-red-500' : ''}`}
                 />
                 <button
                   type="button"
@@ -168,7 +166,7 @@ export default function Login() {
             <div className="flex justify-end">
               <Link
                 to="/forgot-password"
-                className="text-sm text-fuchsia-600 hover:text-fuchsia-500 transition-colors"
+                className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
               >
                 {language === 'hi' ? 'पासवर्ड भूल गए?' : 'Forgot password?'}
               </Link>
@@ -178,7 +176,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#8a2be2] to-[#e1007b] hover:from-[#7a22cb] hover:to-[#cc006e] text-white font-medium py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+              className="w-full btn-3d btn-3d-blue py-3.5 rounded-xl flex items-center justify-center gap-2 text-lg font-medium"
             >
               {isLoading ? (
                 <>
@@ -193,11 +191,11 @@ export default function Login() {
 
           {/* Signup Link */}
           <div className="mt-6 text-center">
-            <p className="text-slate-600">
+            <p className="text-slate-300">
               {language === 'hi' ? 'खाता नहीं है?' : "Don't have an account?"}{' '}
               <Link
                 to="/signup"
-                className="text-fuchsia-600 hover:text-fuchsia-500 font-medium transition-colors"
+                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
               >
                 {language === 'hi' ? 'साइन अप करें' : 'Create Account'}
               </Link>

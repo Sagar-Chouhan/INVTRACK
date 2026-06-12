@@ -261,7 +261,7 @@ export default function UserDashboard() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 + index * 0.05 }}
             onClick={() => navigate(action.path)}
-            className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition-all hover:scale-[1.02] group text-left"
+            className="glass-panel rounded-xl p-5 hover:border-slate-700 transition-all hover:scale-[1.02] group text-left"
           >
             <div className={`w-12 h-12 ${action.iconBg} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
               <action.icon className="h-6 w-6 text-white" />
@@ -277,9 +277,9 @@ export default function UserDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-slate-900/80 border border-slate-800 rounded-xl overflow-hidden"
+        className="glass-panel-heavy rounded-xl overflow-hidden"
       >
-          <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+          <div className="p-5 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
                 <Activity className="h-5 w-5 text-blue-400" />
@@ -307,7 +307,7 @@ export default function UserDashboard() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex items-start gap-4 p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800/70 transition-colors"
+                      className="flex items-start gap-4 p-3 bg-black/20 rounded-lg hover:bg-black/30 transition-colors"
                     >
                       <div className="flex-shrink-0 mt-1">
                         {getStatusIcon(activity.status)}
@@ -344,7 +344,7 @@ export default function UserDashboard() {
         transition={{ delay: 0.3 }}
         className="grid grid-cols-2 lg:grid-cols-4 gap-3"
       >
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+        <div className="glass-panel rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
               <FileText className="h-5 w-5 text-blue-400" />
@@ -356,7 +356,7 @@ export default function UserDashboard() {
           </div>
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+        <div className="glass-panel rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
               <Clock className="h-5 w-5 text-yellow-400" />
@@ -368,7 +368,7 @@ export default function UserDashboard() {
           </div>
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+        <div className="glass-panel rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
               <CheckCircle className="h-5 w-5 text-green-400" />
@@ -380,7 +380,7 @@ export default function UserDashboard() {
           </div>
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+        <div className="glass-panel rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
               <XCircle className="h-5 w-5 text-red-400" />

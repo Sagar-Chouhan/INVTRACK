@@ -341,7 +341,7 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {[...Array(8)].map((_, idx) => (
-            <div key={idx} className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 space-y-4">
+            <div key={idx} className="glass-panel rounded-2xl p-6 space-y-4">
               <div className="skeleton-shimmer h-12 w-12 rounded-xl" />
               <div className="skeleton-shimmer h-8 w-20 rounded" />
               <div className="skeleton-shimmer h-4 w-28 rounded" />
@@ -369,7 +369,7 @@ export default function AdminDashboard() {
         <button
           onClick={handleRefresh}
           disabled={refreshing}
-          className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-lg transition-colors"
         >
           <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
           Refresh
@@ -399,7 +399,7 @@ export default function AdminDashboard() {
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
       >
         {/* Total Products */}
-        <div className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 hover:border-blue-500 transition-all">
+        <div className="glass-panel rounded-2xl p-6 hover:border-blue-500 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
               <Package className="h-6 w-6 text-blue-400" />
@@ -410,7 +410,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stock Entries */}
-        <div className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 hover:border-emerald-500 transition-all">
+        <div className="glass-panel rounded-2xl p-6 hover:border-emerald-500 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center">
               <Box className="h-6 w-6 text-emerald-400" />
@@ -443,7 +443,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Total Users */}
-        <div className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 hover:border-purple-500 transition-all">
+        <div className="glass-panel rounded-2xl p-6 hover:border-purple-500 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
               <Users className="h-6 w-6 text-purple-400" />
@@ -454,7 +454,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Pending Requests */}
-        <div className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 cursor-pointer hover:border-orange-500 transition-all" onClick={() => navigate('/dashboard/pending-requests')}>
+        <div className="glass-panel rounded-2xl p-6 cursor-pointer hover:border-orange-500 transition-all" onClick={() => navigate('/dashboard/pending-requests')}>
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center">
               <Clock className="h-6 w-6 text-orange-400" />
@@ -465,7 +465,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Completed Today */}
-        <div className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 hover:border-green-500 transition-all">
+        <div className="glass-panel rounded-2xl p-6 hover:border-green-500 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
               <CheckCircle className="h-6 w-6 text-green-400" />
@@ -476,7 +476,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Total Issues */}
-        <div className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6 hover:border-cyan-500 transition-all">
+        <div className="glass-panel rounded-2xl p-6 hover:border-cyan-500 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center">
               <Activity className="h-6 w-6 text-cyan-400" />
@@ -503,7 +503,7 @@ export default function AdminDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6"
+        className="glass-panel-heavy rounded-2xl p-6"
       >
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-white">Pending Verification By Category</h3>
@@ -518,7 +518,7 @@ export default function AdminDashboard() {
         {pendingByCategory.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {pendingByCategory.slice(0, 9).map((item) => (
-              <div key={item.categoryId} className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+              <div key={item.categoryId} className="bg-black/20 border border-white/10 rounded-xl p-4">
                 <p className="text-sm text-slate-400">Category</p>
                 <p className="text-white font-semibold truncate">{item.categoryName}</p>
                 <p className="mt-2 text-2xl font-black text-indigo-400">{item.pendingCount}</p>
@@ -536,7 +536,7 @@ export default function AdminDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="bg-slate-900 border-2 border-slate-800 rounded-2xl p-6"
+        className="glass-panel-heavy rounded-2xl p-6"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">

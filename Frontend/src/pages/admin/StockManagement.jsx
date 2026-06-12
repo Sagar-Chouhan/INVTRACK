@@ -32,7 +32,7 @@ const Modal = ({ show, onClose, title, children }) => (
           exit={{ opacity: 0, scale: 0.95 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
         >
-          <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="glass-panel-heavy rounded-xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-semibold text-white">{title}</h3>
               <button onClick={onClose} className="text-slate-400 hover:text-white">
@@ -198,7 +198,7 @@ export default function StockManagement() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-500 hover:to-cyan-500 transition-all"
+          className="flex items-center gap-2 px-6 py-2.5 btn-3d btn-3d-blue rounded-xl transition-all font-semibold"
         >
           <Plus className="h-5 w-5" />
           Add Stock
@@ -214,7 +214,7 @@ export default function StockManagement() {
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search stock..."
-            className="w-full bg-slate-900/50 border border-slate-700 rounded-lg pl-10 pr-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full input-glass rounded-xl pl-10 pr-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="relative">
@@ -222,7 +222,7 @@ export default function StockManagement() {
           <select
             value={selectedCategory}
             onChange={(e) => handleCategoryFilterChange(e.target.value)}
-            className="bg-slate-900/50 border border-slate-700 rounded-lg pl-10 pr-8 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none min-w-[180px]"
+            className="input-glass rounded-xl pl-10 pr-8 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none min-w-[180px]"
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (
@@ -240,10 +240,10 @@ export default function StockManagement() {
             key={item._id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`bg-slate-900/50 border rounded-xl p-4 ${
+            className={`glass-panel rounded-xl p-4 transition-all hover:-translate-y-1 hover:shadow-lg ${
               (item.quantity || item.qty) <= (item.min_qty || 10)
-                ? 'border-red-500/50'
-                : 'border-slate-800'
+                ? '!border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
+                : ''
             }`}
           >
             <div className="flex items-start justify-between mb-3">
@@ -279,14 +279,14 @@ export default function StockManagement() {
             <div className="flex gap-2">
               <button
                 onClick={() => openEditModal(item)}
-                className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 btn-3d btn-3d-slate rounded-lg"
               >
                 <Edit className="h-4 w-4" />
                 Edit
               </button>
               <button
                 onClick={() => handleDeleteStock(item._id)}
-                className="flex items-center justify-center px-3 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
+                className="flex items-center justify-center px-4 py-2 btn-3d btn-3d-red rounded-lg"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
@@ -313,7 +313,7 @@ export default function StockManagement() {
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
               required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full input-glass rounded-lg px-4 py-2 text-white focus:outline-none"
               placeholder="Enter item name"
             />
           </div>
@@ -324,7 +324,7 @@ export default function StockManagement() {
               value={formData.category}
               onChange={(e) => handleInputChange('category', e.target.value)}
               required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full input-glass rounded-lg px-4 py-2 text-white focus:outline-none"
             >
               <option value="">Select category</option>
               {categories.map((cat) => (
@@ -342,7 +342,7 @@ export default function StockManagement() {
                 onChange={(e) => handleInputChange('qty', e.target.value)}
                 required
                 min="0"
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full input-glass rounded-lg px-4 py-2 text-white focus:outline-none"
                 placeholder="0"
               />
             </div>
@@ -354,7 +354,7 @@ export default function StockManagement() {
                 onChange={(e) => handleInputChange('min_qty', e.target.value)}
                 required
                 min="0"
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full input-glass rounded-lg px-4 py-2 text-white focus:outline-none"
                 placeholder="10"
               />
             </div>
@@ -365,7 +365,7 @@ export default function StockManagement() {
             <select
               value={formData.unit}
               onChange={(e) => handleInputChange('unit', e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full input-glass rounded-lg px-4 py-2 text-white focus:outline-none"
               required
             >
               {['Pcs', 'Kg', 'Ltr', 'Mtr', 'Box', 'Set'].map(u => (
@@ -380,14 +380,14 @@ export default function StockManagement() {
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               rows={3}
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full input-glass rounded-lg px-4 py-2 text-white focus:outline-none"
               placeholder="Optional description"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-medium py-2.5 rounded-lg transition-all"
+            className="w-full btn-3d btn-3d-blue font-medium py-3 rounded-lg transition-all"
           >
             Add Item
           </button>
@@ -478,7 +478,7 @@ export default function StockManagement() {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-medium py-2.5 rounded-lg transition-all"
+            className="w-full btn-3d btn-3d-blue font-medium py-3 rounded-lg transition-all"
           >
             Update Item
           </button>
