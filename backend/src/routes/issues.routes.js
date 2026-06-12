@@ -88,6 +88,7 @@ router.post(
         issued_qty: qty,
         issued_by: req.user._id,
         purpose,
+        verification_deadline: req.body.verification_deadline || undefined,
       })
 
       // Send OTP/Notification to recipient

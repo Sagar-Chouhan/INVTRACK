@@ -101,6 +101,7 @@ export default function Issues() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
   const [showAddModal, setShowAddModal] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [inchargeMode, setInchargeMode] = useState('existing') // 'existing' or 'new'
   const [formData, setFormData] = useState({
     stock_id: '',
@@ -135,7 +136,11 @@ export default function Issues() {
       setIssues(issuesRes.data?.issues || issuesRes.data || [])
       setStock(stockData.items || stockData || [])
       setUsers(usersRes.data || [])
-      setIncharges(inchargesRes.data || [])
+      const loadedIncharges = inchargesRes.data || []
+      setIncharges(loadedIncharges)
+      if (loadedIncharges.length === 0) {
+        setInchargeMode('new')
+      }
     } catch (error) {
       console.error('Error loading data:', error)
     } finally {
@@ -145,16 +150,48 @@ export default function Issues() {
 
   const handleCreateIssue = async (e) => {
     e.preventDefault()
+    
+    // Manual validation to prevent silent HTML5 validation failures
+    if (!formData.stock_id) return toast.error('Please select a product')
+    if (!formData.issued_qty || formData.issued_qty <= 0) return toast.error('Please enter a valid quantity')
+    
+    if (inchargeMode === 'existing' && !formData.incharge_id) {
+      return toast.error('Please select an existing incharge')
+    }
+    
+    if (inchargeMode === 'new') {
+      if (!formData.recipient_name) return toast.error('Please enter the recipient name')
+      if (!formData.recipient_mobile || !/^[0-9]{10}$/.test(formData.recipient_mobile)) {
+        return toast.error('Please enter a valid 10-digit mobile number')
+      }
+    }
+    
+    if (formData.issueDuration === 'temporary' && !formData.returnDate) {
+      return toast.error('Please select a return date')
+    }
+
+    if (formData.collectorType === 'reference') {
+      if (!formData.referenceName) return toast.error('Please enter reference person name')
+      if (!formData.referenceMobile || !/^[0-9]{10}$/.test(formData.referenceMobile)) {
+        return toast.error('Please enter a valid 10-digit reference mobile number')
+      }
+    }
+
     try {
+      setSubmitting(true)
       const issueData = {
         stock_id: formData.stock_id,
         issued_qty: parseInt(formData.issued_qty),
         purpose: formData.purpose,
       }
       
+      if (formData.issueDuration === 'temporary' && formData.returnDate) {
+        issueData.verification_deadline = formData.returnDate
+      }
+      
       // Handle incharge - either existing or new
       if (inchargeMode === 'existing') {
-        issueData.incharge_id = formData.incharge_id
+        issueData.incharge_id = formData.incharge_id || undefined
         issueData.recipient_name = formData.recipient_name
         issueData.recipient_mobile = formData.recipient_mobile
         issueData.recipient_email = formData.recipient_email
@@ -180,7 +217,10 @@ export default function Issues() {
       resetForm()
       loadData()
     } catch (error) {
+      console.error(error)
       toast.error(error.response?.data?.message || 'Failed to issue stock')
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -945,18 +985,20 @@ export default function Issues() {
           <div className="flex gap-3">
             <button
               type="button"
+              disabled={submitting}
               onClick={() => { setShowAddModal(false); resetForm(); }}
-              className="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-medium py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 border border-slate-700"
+              className="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-medium py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 border border-slate-700 disabled:opacity-50"
             >
               <X className="h-5 w-5" />
               Back
             </button>
             <button
               type="submit"
-              className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-medium py-2.5 rounded-lg transition-all flex items-center justify-center gap-2"
+              disabled={submitting}
+              className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-medium py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              <Plus className="h-5 w-5" />
-              Issue Stock
+              {submitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Plus className="h-5 w-5" />}
+              {submitting ? 'Issuing...' : 'Issue Stock'}
             </button>
           </div>
         </form>
