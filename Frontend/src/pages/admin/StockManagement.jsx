@@ -91,7 +91,7 @@ export default function StockManagement() {
       await stockAPI.create({
         product_name: formData.name,
         category_id: formData.category,
-        quantity: parseInt(formData.qty),
+        quantity: parseFloat(formData.qty),
         unit: formData.unit,
         notes: formData.description,
       })
@@ -110,7 +110,7 @@ export default function StockManagement() {
       await stockAPI.update(editingItem._id, {
         product_name: formData.name,
         category_id: formData.category,
-        quantity: parseInt(formData.qty),
+        quantity: parseFloat(formData.qty),
         unit: formData.unit,
         notes: formData.description,
       })

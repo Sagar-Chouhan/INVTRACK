@@ -181,7 +181,7 @@ export default function Issues() {
       setSubmitting(true)
       const issueData = {
         stock_id: formData.stock_id,
-        issued_qty: parseInt(formData.issued_qty),
+        issued_qty: parseFloat(formData.issued_qty),
         purpose: formData.purpose,
       }
       
@@ -869,7 +869,9 @@ export default function Issues() {
                 value={formData.issued_qty}
                 onChange={(e) => setFormData({ ...formData, issued_qty: e.target.value })}
                 required
-                min="1"
+                min="0.01"
+                step="any"
+                max={formData.stock_id ? stock.find(s => s._id === formData.stock_id)?.quantity : undefined}
                 className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 pr-20 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter quantity"
               />

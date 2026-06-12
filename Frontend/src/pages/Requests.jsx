@@ -102,7 +102,7 @@ export default function Requests() {
         productName: formData.productName,
         category: formData.category,
         unit: formData.unit,
-        quantity: parseInt(formData.quantity),
+        quantity: parseFloat(formData.quantity),
       })
       toast.success('Request submitted successfully')
       setShowAddModal(false)

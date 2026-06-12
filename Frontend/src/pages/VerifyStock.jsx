@@ -123,7 +123,7 @@ export default function VerifyStock() {
     } else if (digit === 'clear') {
       setPhysicalCount(prev => ({ ...prev, total: 0 }))
     } else {
-      const newTotal = parseInt(currentTotal + digit)
+      const newTotal = parseFloat(currentTotal + digit)
       if (newTotal <= 999999) { // Max limit
         setPhysicalCount(prev => ({ ...prev, total: newTotal }))
       }
@@ -425,7 +425,7 @@ export default function VerifyStock() {
                 value={physicalCount.used}
                 onChange={(e) => setPhysicalCount(prev => ({
                   ...prev,
-                  used: parseInt(e.target.value) || 0
+                  used: parseFloat(e.target.value) || 0
                 }))}
                 className="w-full bg-slate-700 border-2 border-slate-600 rounded-lg py-4 px-6 text-white text-3xl font-bold text-center focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
@@ -441,7 +441,7 @@ export default function VerifyStock() {
                 value={physicalCount.good}
                 onChange={(e) => setPhysicalCount(prev => ({
                   ...prev,
-                  good: parseInt(e.target.value) || 0
+                  good: parseFloat(e.target.value) || 0
                 }))}
                 className="w-full bg-slate-700 border-2 border-slate-600 rounded-lg py-4 px-6 text-white text-3xl font-bold text-center focus:outline-none focus:ring-2 focus:ring-green-500"
               />
@@ -457,7 +457,7 @@ export default function VerifyStock() {
                 value={physicalCount.faulty}
                 onChange={(e) => setPhysicalCount(prev => ({
                   ...prev,
-                  faulty: parseInt(e.target.value) || 0
+                  faulty: parseFloat(e.target.value) || 0
                 }))}
                 className="w-full bg-slate-700 border-2 border-slate-600 rounded-lg py-4 px-6 text-white text-3xl font-bold text-center focus:outline-none focus:ring-2 focus:ring-red-500"
               />

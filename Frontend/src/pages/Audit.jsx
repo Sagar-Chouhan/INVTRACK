@@ -107,8 +107,8 @@ export default function Audit() {
   const handleVerify = async (e) => {
     e.preventDefault()
     try {
-      const issuedQty = parseInt(verifyingItem.issued_qty || 0)
-      const actualQty = parseInt(verifyData.actual_qty) || issuedQty
+      const issuedQty = parseFloat(verifyingItem.issued_qty || 0)
+      const actualQty = parseFloat(verifyData.actual_qty) || issuedQty
       
       if (!verifyData.photo_file) {
         toast.error('Please upload a photo')
